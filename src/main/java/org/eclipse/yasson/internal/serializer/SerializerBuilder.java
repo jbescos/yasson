@@ -140,13 +140,15 @@ public class SerializerBuilder extends AbstractSerializerBuilder<SerializerBuild
             return new FloatArraySerializer(this);
         } else if (componentType == double.class) {
             return new DoubleArraySerializer(this);
+        } else if (componentType == boolean.class) {
+            return new BooleanArraySerializer(this);
         } else {
             return new ObjectArraySerializer<>(this);
         }
     }
 
     private Optional<AbstractValueTypeSerializer<?>> getSupportedTypeSerializer(Class<?> rawType) {
-        final Optional<? extends SerializerProviderWrapper> supportedTypeSerializerOptional = DefaultSerializers.getInstance()
+        final Optional<? extends SerializerProviderWrapper> supportedTypeSerializerOptional = DefaultSerializers
                 .findValueSerializerProvider(rawType);
         if (supportedTypeSerializerOptional.isPresent()) {
             return Optional

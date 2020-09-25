@@ -199,7 +199,7 @@ public class DeserializerBuilder extends AbstractSerializerBuilder<DeserializerB
     }
 
     private Optional<AbstractValueTypeDeserializer<?>> getSupportedTypeDeserializer(Class<?> rawType) {
-        final Optional<? extends SerializerProviderWrapper> supportedTypeDeserializerOptional = DefaultSerializers.getInstance()
+        final Optional<? extends SerializerProviderWrapper> supportedTypeDeserializerOptional = DefaultSerializers
                 .findValueSerializerProvider(rawType);
         if (supportedTypeDeserializerOptional.isPresent()) {
             return Optional.of(supportedTypeDeserializerOptional.get().getDeserializerProvider()
@@ -287,6 +287,8 @@ public class DeserializerBuilder extends AbstractSerializerBuilder<DeserializerB
             return new FloatArrayDeserializer(this);
         } else if (componentType == double.class) {
             return new DoubleArrayDeserializer(this);
+        } else if (componentType == boolean.class) {
+            return new BooleanArrayDeserializer(this);
         } else {
             return new ObjectArrayDeserializer(this);
         }

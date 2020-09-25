@@ -25,18 +25,11 @@ install: true
 jobs:
   include:
     - stage: checkstyle
-      script: mvn checkstyle:checkstyle
+      script: mvn -B -Pstaging checkstyle:checkstyle
     - stage: copyright
       script: bash etc/copyright.sh
     - stage: install-yasson
       script: mvn -U -C -Pstaging clean install
-#    - stage: run-jmh
-#      script:
-#        - cd yasson-jmh
-#        - mvn clean install
-#        - java -jar target/yasson-jmh.jar -t 1 -f 2
-# TOOD: re-enable TCK once it's been updated to use jakarta packages
-#    - stage: tck-run
-#      script: bash etc/tck.sh
-
+    - stage: tck-run
+      script: cd yasson-tck && mvn -U -B -Pstaging test
 
